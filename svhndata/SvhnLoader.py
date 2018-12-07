@@ -16,7 +16,7 @@ class SvhnData:
         print('\nChecking if data files exist...')
 
         for file in self.file_list:
-            file_path = './'+self.directory+'/'+file
+            file_path = './'+self.directory+'/' + file
             if not os.path.exist(file_path):
                 url = 'http://ufldl.stanford.edu/housenumbers/' + file
                 print('Downloadind ' + file)
