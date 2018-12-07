@@ -24,8 +24,3 @@ class SvhnData:
                 print(' Downloaded')
             else:
                 print('File ' + file + ' already exists!')
-
-
-
-
-  
