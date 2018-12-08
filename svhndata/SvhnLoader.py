@@ -1,7 +1,6 @@
 import wget
 import os
 import scipy.io as sio
-import numpy as np
 
 
 class SvhnData:
