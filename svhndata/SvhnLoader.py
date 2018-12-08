@@ -7,6 +7,7 @@ class SvhnData:
         self.file_list = ['train_32x32.mat', 'test_32x32.mat' , 'extra_32x32.mat']
         self.framework = None
         self.X_data = None
+        self.range_num = None
     def load_data(self):
         print('checking if directory exist...')
         try:
@@ -37,4 +38,10 @@ class SvhnData:
 
         print("New shape " + str(X_new_data.shape))
 
-        return X_new_data    
+        return X_new_data
+
+    def change_range(self,x_array,y_array,self.range_num):
+        x_array = x_array[:self.range_num,]
+        y_array = y_array[:self.range_num,]
+        print("New shape for x " + str(x_array.shape))
+        print("New shape for y "+ str(y_array.shape))
