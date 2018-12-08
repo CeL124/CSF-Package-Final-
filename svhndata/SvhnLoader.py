@@ -1,6 +1,8 @@
 import wget
 import os
 import scipy.io as sio
+import numpy as np
+
 
 class SvhnData:
     def __init__(self):
@@ -16,8 +18,7 @@ class SvhnData:
         self.extraImages = None
         self.extraLabels = None
         self.framework = None
-        self.X_data = None
-        self.range_num = None
+
     def load_data(self):
         print('checking if directory exists...')
         try:
@@ -32,7 +33,7 @@ class SvhnData:
             file_path = './'+self.directory+'/' + file
             if not os.path.exists(file_path):
                 url = 'http://ufldl.stanford.edu/housenumbers/' + file
-                print('Downloadind ' + file)
+                print('Downloading ' + file)
                 wget.download(url, file_path)
                 print(' Downloaded')
             else:
@@ -54,28 +55,24 @@ class SvhnData:
         else:
             return self.x_train, self.y_train, self.x_test, self.y_test
 
-
-    def change_dim(X_data,framework = "tensorflow"):
-        if framework == "pytorch" or framework=="caffe":
-            X_new_data = X_data.transpose(3,2,0,1)
-        elif framework == "tensorflow" or framework=="keras":
-            X_new_data = X_data.transpose(3,0,1,2)
-
-    def change_dim(self,self.X_data,self.framework):
-        if self.framework == "pytorch" or self.framework=="caffe":
-            X_new_data = self.X_data.transpose(3,2,0,1)
-        elif self.framework == "tensorflow" or self.framework=="keras":
-            X_new_data = self.X_data.transpose(3,0,1,2)
+    @staticmethod
+    def change_dim(x_data, framework):
+        if framework == "pytorch" or framework == "caffe":
+            x_new_data = x_data.transpose(3, 2, 0, 1)
+        elif framework == "tensorflow" or framework == "keras":
+            x_new_data = x_data.transpose(3, 0, 1, 2)
 
         else:
             print("Invalid option")
 
-        print("New shape " + str(X_new_data.shape))
+        print("New shape " + str(x_new_data.shape))
 
-        return X_new_data
+        return x_new_data
 
-    def change_range(x_array,y_array,range_num):
+    @staticmethod
+    def change_range(range_num, x_array, y_array):
         x_array = x_array[:range_num,]
         y_array = y_array[:range_num,]
+        print('\ndata size range has been changed. New shape below')
         print("New shape for x " + str(x_array.shape))
-        print("New shape for y "+ str(y_array.shape))
+        print("New shape for y " + str(y_array.shape))
