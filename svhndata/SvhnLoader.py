@@ -56,13 +56,14 @@ class SvhnData:
 
     @staticmethod
     def change_dim(x_data, framework):
+
         if framework == "pytorch" or framework == "caffe":
             x_new_data = x_data.transpose(3, 2, 0, 1)
         elif framework == "tensorflow" or framework == "keras":
             x_new_data = x_data.transpose(3, 0, 1, 2)
 
         else:
-            print("Invalid option")
+            print("please enter pytorch, caffe, keras, or tensorflow")
 
         print("New shape " + str(x_new_data.shape))
 
@@ -70,8 +71,8 @@ class SvhnData:
 
     @staticmethod
     def change_range(range_num, x_array, y_array):
-        x_array = x_array[:range_num,]
-        y_array = y_array[:range_num,]
+        x_array = x_array[:range_num, ]
+        y_array = y_array[:range_num, ]
         print('\ndata size range has been changed. New shape below')
         print("New shape for x " + str(x_array.shape))
         print("New shape for y " + str(y_array.shape))
