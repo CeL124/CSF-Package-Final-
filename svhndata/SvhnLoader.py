@@ -5,6 +5,8 @@ class SvhnData:
     def __init__(self):
         self.directory = 'dataSvhn'
         self.file_list = ['train_32x32.mat', 'test_32x32.mat' , 'extra_32x32.mat']
+        self.framework = None
+        self.X_data = None
     def load_data(self):
         print('checking if directory exist...')
         try:
@@ -24,3 +26,15 @@ class SvhnData:
                 print(' Downloaded')
             else:
                 print('File ' + file + ' already exists!')
+
+    def change_dim(self,self.X_data,self.framework):
+        if self.framework == "pytorch" or self.framework=="caffe":
+            X_new_data = self.X_data.transpose(3,2,0,1)
+        elif self.framework == "tensorflow" or self.framework=="keras":
+            X_new_data = self.X_data.transpose(3,0,1,2)
+        else:
+            print("Invalid option")
+
+        print("New shape " + str(X_new_data.shape))
+
+        return X_new_data    
