@@ -1,7 +1,6 @@
 import wget
 import os
 import scipy.io as sio
-import numpy as np
 
 
 class SvhnData:
@@ -24,7 +23,7 @@ class SvhnData:
         try:
             os.mkdir(self.directory)
             print('\ndirectory ' + self.directory + ' is being created..')
-        except:
+        except FileExistsError:
             print('directory ' + self.directory + ' already exists.')
 
         print('\nChecking if data files exist...')
