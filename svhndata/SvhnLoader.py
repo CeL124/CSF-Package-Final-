@@ -23,7 +23,7 @@ class SvhnData:
         try:
             os.mkdir(self.directory)
             print('\ndirectory ' + self.directory + ' is being created..')
-        except:
+        except FileExistsError:
             print('directory ' + self.directory + ' already exists.')
 
         print('\nChecking if data files exist...')
