@@ -1,11 +1,14 @@
-import wget
+"""
+CLASS to get SVHN training and Testing data.
+"""
+import wget # get file from url
 import os
-import scipy.io as sio
+import scipy.io as sio # To load the matlabfiles
 
 
 class SvhnData:
     def __init__(self):
-        self.directory = 'dataSvhn'
+        self.directory = 'data-Svhn'
         self.file_list = ['train_32x32.mat', 'test_32x32.mat' , 'extra_32x32.mat']
         self.trainData = None
         self.testData = None
@@ -16,9 +19,10 @@ class SvhnData:
         self.y_test = None
         self.extraImages = None
         self.extraLabels = None
-        self.framework = None
 
+    # get data from website and load it into a directory
     def load_data(self):
+        # try Creating directory data-Svhn. Catch if already exists
         print('checking if directory exists...')
         try:
             os.mkdir(self.directory)
@@ -32,7 +36,7 @@ class SvhnData:
             file_path = './'+self.directory+'/' + file
             if not os.path.exists(file_path):
                 url = 'http://ufldl.stanford.edu/housenumbers/' + file
-                print('Downloading ' + file)
+                print('\nDownloading ' + file)
                 wget.download(url, file_path)
                 print(' Downloaded')
             else:
@@ -40,9 +44,9 @@ class SvhnData:
 
     def get_data(self, get_extra = False):
 
-        self.trainData = sio.loadmat("./dataSvhn/train_32x32.mat")
-        self.testData = sio.loadmat("./dataSvhn/test_32x32.mat")
-        self.validationData = sio.loadmat("./dataSvhn/extra_32x32.mat")
+        self.trainData = sio.loadmat("./data-Svhn/train_32x32.mat")
+        self.testData = sio.loadmat("./data-Svhn/test_32x32.mat")
+        self.validationData = sio.loadmat("./data-Svhn/extra_32x32.mat")
         self.x_train = self.trainData["X"]
         self.y_train = self.trainData["y"]
         self.x_test = self.testData["X"]
@@ -55,19 +59,21 @@ class SvhnData:
         else:
             return self.x_train, self.y_train, self.x_test, self.y_test
 
+    # change image dimension to specified framework
     @staticmethod
     def change_dim(x_data, framework):
 
         if framework == "pytorch" or framework == "caffe":
+            # [h, w, channel, num_images] --> [num_images,channel, h, w]
             x_new_data = x_data.transpose(3, 2, 0, 1)
         elif framework == "tensorflow" or framework == "keras":
+            # [h, w, channel, num_images] --> [num_images, h, w, channel]
             x_new_data = x_data.transpose(3, 0, 1, 2)
-
         else:
             print("please enter pytorch, caffe, keras, or tensorflow")
 
         print("New shape " + str(x_new_data.shape))
-
+        print('--'*10)
         return x_new_data
 
     @staticmethod
