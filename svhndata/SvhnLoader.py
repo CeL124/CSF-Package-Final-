@@ -4,6 +4,7 @@ CLASS to get SVHN training and Testing data.
 import wget # get file from url
 import os
 import scipy.io as sio # To load the matlabfiles
+import numpy as np
 
 
 class SvhnData:
@@ -42,22 +43,36 @@ class SvhnData:
             else:
                 print('File ' + file + ' already exists!')
 
-    def get_data(self, get_extra = False):
+    def get_data(self, one-hot = False, get_extra = False):
 
         self.trainData = sio.loadmat("./data-Svhn/train_32x32.mat")
         self.testData = sio.loadmat("./data-Svhn/test_32x32.mat")
         self.validationData = sio.loadmat("./data-Svhn/extra_32x32.mat")
+        ##############################################################
         self.x_train = self.trainData["X"]
         self.y_train = self.trainData["y"]
+        self.y_train[self.y_train == 10] = 0 # fixing label index issue
+        ##############################################################
         self.x_test = self.testData["X"]
         self.y_test = self.testData["y"]
+        self.y_test[self.y_test == 10] = 0 # fixing label index issue
+        ##############################################################
         self.extraImages = self.validationData["X"]
         self.extraLabels = self.validationData["y"]
+        self.extraLabels[self.extraLabels == 10] = 0 # fixing label index issue
+
+        if one-hot:
+            self.y_train = self.y_train.flatten()
+            self.y_train = (np.arange(10) == self.y_train[:, np.newaxis]).astype(np.float32)
+
+            self.y_test = self.y_test.flatten()
+            self.y_test = (np.arange(10) == self.y_test[:, np.newaxis]).astype(np.float32)
 
         if get_extra:
             return self.x_train, self.y_train, self.x_test, self.y_test, self.extraImages, self.extraLabels
         else:
             return self.x_train, self.y_train, self.x_test, self.y_test
+
 
     # change image dimension to specified framework
     @staticmethod
@@ -72,8 +87,8 @@ class SvhnData:
         else:
             print("please enter pytorch, caffe, keras, or tensorflow")
 
-        print("New shape " + str(x_new_data.shape))
-        print('--'*10)
+        print('dimension for ' + str(framework) + ': ' + str(x_new_data.shape))
+        print('--'*12)
         return x_new_data
 
     @staticmethod
