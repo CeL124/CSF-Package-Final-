@@ -39,6 +39,7 @@ class SvhnData:
                 print('File ' + file + ' already exists!')
 
     def get_data(self, get_extra = False):
+
         self.trainData = sio.loadmat("./dataSvhn/train_32x32.mat")
         self.testData = sio.loadmat("./dataSvhn/test_32x32.mat")
         self.validationData = sio.loadmat("./dataSvhn/extra_32x32.mat")
