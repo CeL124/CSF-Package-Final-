@@ -19,18 +19,18 @@ class SvhnData:
         self.X_data = None
         self.range_num = None
     def load_data(self):
-        print('checking if directory exist...')
+        print('checking if directory exists...')
         try:
             os.mkdir(self.directory)
             print('\ndirectory ' + self.directory + ' is being created..')
         except:
-            print('directory ' + self.directory + ' already exist.')
+            print('directory ' + self.directory + ' already exists.')
 
         print('\nChecking if data files exist...')
 
         for file in self.file_list:
             file_path = './'+self.directory+'/' + file
-            if not os.path.exist(file_path):
+            if not os.path.exists(file_path):
                 url = 'http://ufldl.stanford.edu/housenumbers/' + file
                 print('Downloadind ' + file)
                 wget.download(url, file_path)
@@ -53,7 +53,7 @@ class SvhnData:
             return self.x_train, self.y_train, self.x_test, self.y_test, self.extraImages, self.extraLabels
         else:
             return self.x_train, self.y_train, self.x_test, self.y_test
-          
+
     def change_dim(self,self.X_data,self.framework):
         if self.framework == "pytorch" or self.framework=="caffe":
             X_new_data = self.X_data.transpose(3,2,0,1)
@@ -71,4 +71,3 @@ class SvhnData:
         y_array = y_array[:self.range_num,]
         print("New shape for x " + str(x_array.shape))
         print("New shape for y "+ str(y_array.shape))
-
