@@ -54,11 +54,19 @@ class SvhnData:
         else:
             return self.x_train, self.y_train, self.x_test, self.y_test
 
+
+    def change_dim(X_data,framework = "tensorflow"):
+        if framework == "pytorch" or framework=="caffe":
+            X_new_data = X_data.transpose(3,2,0,1)
+        elif framework == "tensorflow" or framework=="keras":
+            X_new_data = X_data.transpose(3,0,1,2)
+
     def change_dim(self,self.X_data,self.framework):
         if self.framework == "pytorch" or self.framework=="caffe":
             X_new_data = self.X_data.transpose(3,2,0,1)
         elif self.framework == "tensorflow" or self.framework=="keras":
             X_new_data = self.X_data.transpose(3,0,1,2)
+
         else:
             print("Invalid option")
 
@@ -66,8 +74,8 @@ class SvhnData:
 
         return X_new_data
 
-    def change_range(self,x_array,y_array,self.range_num):
-        x_array = x_array[:self.range_num,]
-        y_array = y_array[:self.range_num,]
+    def change_range(x_array,y_array,range_num):
+        x_array = x_array[:range_num,]
+        y_array = y_array[:range_num,]
         print("New shape for x " + str(x_array.shape))
         print("New shape for y "+ str(y_array.shape))
