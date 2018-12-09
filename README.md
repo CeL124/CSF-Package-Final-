@@ -1,4 +1,4 @@
-# CSF-Package-Final-
+# svhndata package
 Building the *svhndata* package to get [The Street View House Numbers (SVHN) Dataset](http://ufldl.stanford.edu/housenumbers/) ready for machine learning modeling for different frameworks.
 
 ![alt text][svhn-image]
