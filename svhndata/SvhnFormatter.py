@@ -52,10 +52,3 @@ def onehot_encoder(y):
 def svhn_max_min(x):
     x = x/255
     return x
-
-
-if __name__=='__main__':
-    change_dim()
-    change_range()
-    onehot_encoder()
-    svhn_max_min()
