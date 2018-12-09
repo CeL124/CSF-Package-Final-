@@ -13,3 +13,23 @@ The *svhndata* package will:
 - set the training and testing.
   - return x_train, y_train, x_test, y_test.
   - it has an option to add extra data.
+
+
+### Libraries Needed
+We used python 3.5. Therefore any future version should work.
+We used the following libraries for this package:
+
+__Numpy__
+```
+pip install numpy
+```
+```
+conda install -c anaconda numpy
+```
+__wget__
+```
+pip install wget
+```
+
+
+
