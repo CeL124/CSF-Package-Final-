@@ -45,3 +45,43 @@ python setup.py install
 ```
 
 
+### Sample code
+```python
+from svhndata.SvhnLoader import SvhnData
+from svhndata.SvhnFormatter import change_range, change_dim
+
+sv = SvhnData()
+sv.load_data()
+
+xtrain, ytrain, xtest, ytest = sv.get_data(onehot=True)
+
+xtrain = change_dim(xtrain, framework='tensorflow')
+xtest = change_dim(xtest, framework='tensorflow')
+
+xtrain, ytrain = change_range(30000, xtrain, ytrain)
+```
+#### output
+```
+checking if directory exists...
+directory data-Svhn already exists!
+
+Checking if data files exist...
+File train_32x32.mat already exists!
+File test_32x32.mat already exists!
+File extra_32x32.mat already exists!
+****************************************
+
+Loading the data. Please wait...
+
+Image dimensions ready for tensorflow: (73257, 32, 32, 3)
+--------------------------------------------------
+Image dimensions ready for tensorflow: (26032, 32, 32, 3)
+--------------------------------------------------
+
+Data range has been changed. New shape below
+----------------------------------------
+New shape for images (30000, 32, 32, 3)
+----------------------------------------
+New shape for labels (30000, 10)
+****************************************
+```
