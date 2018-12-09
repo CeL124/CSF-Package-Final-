@@ -13,6 +13,9 @@ The *svhndata* package will:
 - set the training and testing.
   - return x_train, y_train, x_test, y_test.
   - it has an option to add extra data.
+  - option to get labels one hot encoded
+- rescale image pixes to 0-1
+- change dimensions of data for _tensorflow_ , _pytorch_ , and _keras_ .
 
 
 ### Libraries Needed
