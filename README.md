@@ -17,7 +17,10 @@ The *svhndata* package will:
 
 ### Libraries Needed
 We used python 3.5. Therefore any future version should work.
-We used the following libraries for this package:
+We used a couple of libraries to create this package. 
+Some already come automatically installed in python3. 
+
+The following libraries should be install in your machine:
 
 __Numpy__
 ```
