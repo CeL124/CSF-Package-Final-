@@ -36,6 +36,10 @@ __wget__
 ```
 pip install wget
 ```
+__install everything__
+```
+pip install -r requirements.txt
+```
 
 ### Installation
 Type the following commands in your terminal.
