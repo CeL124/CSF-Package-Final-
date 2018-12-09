@@ -1,10 +1,10 @@
 """
 CLASS to get SVHN training and Testing data.
 """
+from svhndata.SvhnFormatter import onehot_encoder, svhn_max_min
 import wget # get file from url
 import os
-import scipy.io as sio # To load the matlabfiles
-import numpy as np
+import scipy.io as sio # To load the matlab files
 
 
 class SvhnData:
@@ -43,7 +43,10 @@ class SvhnData:
             else:
                 print('File ' + file + ' already exists!')
 
-    def get_data(self, one-hot = False, get_extra = False):
+    # function will load the Matlab file into a variable.
+    # Then it will separate images and labels.
+    # This will happen for train, test, and extra
+    def get_data(self, onehot=False, get_extra=False, rescale=True):
 
         self.trainData = sio.loadmat("./data-Svhn/train_32x32.mat")
         self.testData = sio.loadmat("./data-Svhn/test_32x32.mat")
@@ -61,12 +64,15 @@ class SvhnData:
         self.extraLabels = self.validationData["y"]
         self.extraLabels[self.extraLabels == 10] = 0 # fixing label index issue
 
-        if one-hot:
-            self.y_train = self.y_train.flatten()
-            self.y_train = (np.arange(10) == self.y_train[:, np.newaxis]).astype(np.float32)
+        if onehot:
+            self.y_train = onehot_encoder(self.y_train)
 
-            self.y_test = self.y_test.flatten()
-            self.y_test = (np.arange(10) == self.y_test[:, np.newaxis]).astype(np.float32)
+            self.y_test = onehot_encoder(self.y_test)
+
+        if rescale:
+            self.x_train = svhn_max_min(self.x_train)
+            self.x_test = svhn_max_min(self.x_test)
+            self.extraImages = svhn_max_min(self.extraImages)
 
         if get_extra:
             return self.x_train, self.y_train, self.x_test, self.y_test, self.extraImages, self.extraLabels
@@ -74,27 +80,5 @@ class SvhnData:
             return self.x_train, self.y_train, self.x_test, self.y_test
 
 
-    # change image dimension to specified framework
-    @staticmethod
-    def change_dim(x_data, framework):
-
-        if framework == "pytorch" or framework == "caffe":
-            # [h, w, channel, num_images] --> [num_images,channel, h, w]
-            x_new_data = x_data.transpose(3, 2, 0, 1)
-        elif framework == "tensorflow" or framework == "keras":
-            # [h, w, channel, num_images] --> [num_images, h, w, channel]
-            x_new_data = x_data.transpose(3, 0, 1, 2)
-        else:
-            print("please enter pytorch, caffe, keras, or tensorflow")
-
-        print('dimension for ' + str(framework) + ': ' + str(x_new_data.shape))
-        print('--'*12)
-        return x_new_data
-
-    @staticmethod
-    def change_range(range_num, x_array, y_array):
-        x_array = x_array[:range_num, ]
-        y_array = y_array[:range_num, ]
-        print('\ndata size range has been changed. New shape below')
-        print("New shape for x " + str(x_array.shape))
-        print("New shape for y " + str(y_array.shape))
+if __name__ == '__main__':
+    SvhnData()
