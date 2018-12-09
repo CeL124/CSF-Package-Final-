@@ -1,0 +1,4 @@
+python3_wget==0.0.2b1
+numpy==1.15.4
+scipy==1.1.0
+wget==3.2
