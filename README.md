@@ -41,7 +41,7 @@ git clone https://github.com/CeL124/CSF-Package-Final-.git
 
 cd CSF-Package-Final-
 
-python setup.py install
+python3 setup.py install 
 ```
 
 
