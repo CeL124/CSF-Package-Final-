@@ -15,11 +15,12 @@ The *svhndata* package will:
   - it has an option to add extra data.
   - option to get labels one hot encoded
 - rescale image pixes to 0-1
-- change dimensions of data for _tensorflow_ , _pytorch_ , and _keras_ .
+- change dimensions of data for _tensorflow_ and _keras_ work.
+- plots 9 images in a subplot.
 
 
 ### Libraries Needed
-We used python 3.5. Any future version should work.
+We used python 3.6. Any future version should work.
 We used a couple of libraries to create this package. 
 Some already come automatically installed in python3. 
 
