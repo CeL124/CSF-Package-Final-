@@ -91,3 +91,5 @@ New shape for labels (30000, 10)
 ![alt text][output-img]
 
 [output-img]:img_output.png "output image"
+
+the image above is the output of the _print_sample_ function in the last line of the sample code.
