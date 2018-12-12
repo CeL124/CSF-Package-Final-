@@ -24,18 +24,10 @@ We used a couple of libraries to create this package.
 Some already come automatically installed in python3. 
 
 The following libraries should be install in your machine:
+_numpy_, _wget_, _matplotlib_
 
-__Numpy__
-```
-pip install numpy
-```
-```
-conda install -c anaconda numpy
-```
-__wget__
-```
-pip install wget
-```
+The code below will install everything.
+
 __install everything__
 ```
 pip install -r requirements.txt
