@@ -19,7 +19,7 @@ The *svhndata* package will:
 
 
 ### Libraries Needed
-We used python 3.5. Therefore any future version should work.
+We used python 3.5. Any future version should work.
 We used a couple of libraries to create this package. 
 Some already come automatically installed in python3. 
 
@@ -88,3 +88,6 @@ New shape for images (30000, 32, 32, 3)
 New shape for labels (30000, 10)
 ****************************************
 ```
+![alt text][output-img]
+
+[output-img]:img_output.png "output image"
