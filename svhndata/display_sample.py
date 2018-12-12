@@ -1,3 +1,8 @@
+"""
+This will display 9 sample images from you dataself.
+Inputs will an image array, corresponding label array and a number.
+The number will has to be between 10 and nine less than the length of the array.
+"""
 import matplotlib.pyplot as plt
 
 
@@ -20,4 +25,3 @@ def print_sample(img_array, label_array, num):
             plt.yticks([])
     plt.tight_layout()
     plt.show()
-
