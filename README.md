@@ -62,7 +62,7 @@ xtest = change_dim(xtest)   # change the dimensions of the image
 
 xtrain, ytrain = change_range(30000, xtrain, ytrain)  # change the data size to 30,000
 
-print_sample(xtrain, ytrain, 20)  # print 9 sample images.
+print_sample(xtrain, ytrain, 10)  # print 9 sample images.
 ```
 #### output
 ```
