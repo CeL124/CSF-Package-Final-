@@ -48,16 +48,20 @@ python3 setup.py install
 ```python
 from svhndata.SvhnLoader import SvhnData
 from svhndata.SvhnFormatter import change_range, change_dim
+from svhndata.display_sample import print_sample
 
-sv = SvhnData()
-sv.load_data()
+sv = SvhnData()  # object of the SvhnLoader Class
+sv.load_data()  # load the data
 
-xtrain, ytrain, xtest, ytest = sv.get_data(onehot=True)
+xtrain, ytrain, xtest, ytest = sv.get_data()  # get the data
 
-xtrain = change_dim(xtrain, framework='tensorflow')
-xtest = change_dim(xtest, framework='tensorflow')
+# [h, w, channel, num_images] --> [num_images, h, w, channel]
+xtrain = change_dim(xtrain)  # change the dimensions of the image
+xtest = change_dim(xtest)   # change the dimensions of the image
 
-xtrain, ytrain = change_range(30000, xtrain, ytrain)
+xtrain, ytrain = change_range(30000, xtrain, ytrain)  # change the data size to 30,000
+
+print_sample(xtrain, ytrain, 20)  # print 9 sample images.
 ```
 #### output
 ```
