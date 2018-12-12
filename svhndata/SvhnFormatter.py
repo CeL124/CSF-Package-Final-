@@ -1,26 +1,19 @@
 """
 Functions to format the SVHN data.
 Contains:
-    - Function to change dimensions for different frameworks requirements.
+    - Function to change dimensions for tensorflow requirements
     - Function to change the amount of data used.
     - Function to one hot encode the labels.
 """
 import numpy as np
 
 
-def change_dim(x_data, framework="tensorflow"):
+def change_dim(x_data):
 
-    # change image dimension to specified framework
-    if framework == "pytorch":
-        # [h, w, channel, num_images] --> [num_images,channel, h, w]
-        x_new_data = x_data.transpose(3, 2, 0, 1)
-    elif framework == "tensorflow" or framework == "keras":
-        # [h, w, channel, num_images] --> [num_images, h, w, channel]
-        x_new_data = x_data.transpose(3, 0, 1, 2)
-    else:
-        print("change_dim only takes pytorch, keras, or tensorflow")
+    # [h, w, channel, num_images] --> [num_images, h, w, channel]
+    x_new_data = x_data.transpose(3, 0, 1, 2)
 
-    print('Image dimensions ready for ' + str(framework) + ': ' + str(x_new_data.shape))
+    print('Image dimensions changed: ' + str(x_new_data.shape))
     print('--' * 25)
     return x_new_data
 
@@ -52,10 +45,3 @@ def onehot_encoder(y):
 def svhn_max_min(x):
     x = x/255
     return x
-
-
-if __name__=='__main__':
-    change_dim()
-    change_range()
-    onehot_encoder()
-    svhn_max_min()
